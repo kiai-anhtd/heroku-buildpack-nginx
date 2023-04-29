@@ -14,7 +14,7 @@ nginx_tarball_url=https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz
 pcre_tarball_url=https://ftp.exim.org/pub/pcre/pcre-${PCRE_VERSION}.tar.gz
 headers_more_nginx_module_url=https://github.com/openresty/headers-more-nginx-module/archive/v${HEADERS_MORE_VERSION}.tar.gz
 uuid4_url=https://github.com/cybozu/nginx-uuid4-module/archive/${UUID4_VERSION}.tar.gz
-zlib_url=http://zlib.net/zlib-${ZLIB_VERSION}.tar.gz
+zlib_url=https://zlib.net/fossils/zlib-${ZLIB_VERSION}.tar.gz
 
 temp_dir=$(mktemp -d /tmp/nginx.XXXXXXXXXX)
 
@@ -42,8 +42,11 @@ echo "Downloading $uuid4_url"
   ./configure \
     --with-pcre=pcre-${PCRE_VERSION} \
     --with-zlib=zlib-${ZLIB_VERSION} \
+    --with-http_v2_module \
+		--with-poll_module \
+		--with-http_realip_module \
+		--with-http_sub_module \
     --with-http_gzip_static_module \
-    --with-http_realip_module \
     --with-http_ssl_module \
     --prefix=/tmp/nginx \
     --add-module=${temp_dir}/nginx-${NGINX_VERSION}/headers-more-nginx-module-${HEADERS_MORE_VERSION} \
@@ -58,8 +61,11 @@ echo "Downloading $uuid4_url"
     --with-debug \
     --with-pcre=pcre-${PCRE_VERSION} \
     --with-zlib=zlib-${ZLIB_VERSION} \
+    --with-http_v2_module \
+		--with-poll_module \
+		--with-http_realip_module \
+		--with-http_sub_module \
     --with-http_gzip_static_module \
-    --with-http_realip_module \
     --with-http_ssl_module \
     --prefix=/tmp/nginx-debug \
     --add-module=${temp_dir}/nginx-${NGINX_VERSION}/headers-more-nginx-module-${HEADERS_MORE_VERSION} \
